@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Quiz</string>
+    <string name="true_button">Yes</string>
+    <string name="false_button">No</string>
+    <string name="next_button">next</string>
+    <string name="previous_button">previous</string>
+
+    <string-array name="questions">
+        <item>Are you happy?</item>
+        <item>Do you have a lot of free time?</item>
+        <item>Do you enjoy your life?</item>
+        <item>Do like socialising?</item>
+        <item>Are you afraid of stagnation?</item>
+    </string-array>
+
+    <string name="true_button_answer">Cool</string>
+    <string name="false_button_answer">This is sad</string>
+
+    <string name="first_answer">This is the first question</string>
+    <string name="final_answer">This is the end</string>
+</resources>
