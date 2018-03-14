@@ -13,9 +13,27 @@
         <item>Are you afraid of stagnation?</item>
     </string-array>
 
+    <array name="answers">
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+    </array>
+
     <string name="true_button_answer">Cool</string>
     <string name="false_button_answer">This is sad</string>
 
     <string name="first_answer">This is the first question</string>
     <string name="final_answer">This is the end</string>
+
+
+    <string name="clue_question">Are you sure?</string>
+
+    <string name="clue_button">clue</string>
+
+    <string name="correct">correct</string>
+    <string name="incorrect">incorrect</string>
+
+    <string name="tapped">That is not fair!</string>
 </resources>
