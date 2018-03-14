@@ -1,39 +1,26 @@
 <resources>
     <string name="app_name">Quiz</string>
-    <string name="true_button">Yes</string>
-    <string name="false_button">No</string>
-    <string name="next_button">next</string>
-    <string name="previous_button">previous</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="next">next</string>
+    <string name="previous">previous</string>
 
     <string-array name="questions">
-        <item>Are you happy?</item>
-        <item>Do you have a lot of free time?</item>
-        <item>Do you enjoy your life?</item>
-        <item>Do like socialising?</item>
-        <item>Are you afraid of stagnation?</item>
+        <item>2+2=4?</item>
+        <item>5+85>100?</item>
+        <item>123*0=9?</item>
+        <item>5!=0?</item>
+        <item>7+8=15</item>
     </string-array>
 
-    <array name="answers">
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-    </array>
+    <!-- <string name="first_answer">This is the first question</string>
+    <string name="final_answer">This is the end</string>-->
 
-    <string name="true_button_answer">Cool</string>
-    <string name="false_button_answer">This is sad</string>
-
-    <string name="first_answer">This is the first question</string>
-    <string name="final_answer">This is the end</string>
-
-
-    <string name="clue_question">Are you sure?</string>
-
+    <string name="clue_confirm">Are you sure?</string>
     <string name="clue_button">clue</string>
 
     <string name="correct">correct</string>
     <string name="incorrect">incorrect</string>
+    <string name="cheated">That is not fair to cheat!</string>
 
-    <string name="tapped">That is not fair!</string>
 </resources>

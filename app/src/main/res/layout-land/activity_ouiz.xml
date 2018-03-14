@@ -24,7 +24,7 @@
             android:id="@+id/true_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/true_button" />
+            android:text="@string/yes" />
 
         <View android:layout_width="20dp"
             android:layout_height="1dp"/>
@@ -42,14 +42,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/previous_button"
+            android:text="@string/previous"
             android:id="@+id/previous_button"/>
         <View android:layout_width="150dp"
             android:layout_height="1dp"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next_button"
+            android:text="@string/next"
             android:id="@+id/next_button"/>
     </LinearLayout>
 

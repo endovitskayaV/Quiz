@@ -8,36 +8,35 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import static vsu.ru.quiz.OuizActivity.EXTRA_IS_TRUE;
+import static vsu.ru.quiz.OuizActivity.EXTRA_ANSWER_IS_TRUE;
 
 public class ClueActivity extends AppCompatActivity {
-    private int isCorrect;
-    private Button clueButton;
-    private TextView clueTv;
+    private boolean isCorrect;
+    private TextView clueTextView;
     static final String EXTRA_HAS_TAPPED = "vsu.ru.quiz.has_tapped";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clue);
-        isCorrect = getIntent().getIntExtra(EXTRA_IS_TRUE, 2);
 
-        clueButton = findViewById(R.id.clue_button);
-        clueTv=findViewById(R.id.clue_tv);
+        isCorrect = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
+
+        Button clueButton = findViewById(R.id.clue_button);
+        clueTextView=findViewById(R.id.clue_tv);
         clueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isCorrect==1)
-                clueTv.setText(R.string.correct);
-                else clueTv.setText(R.string.incorrect);
+                if (isCorrect) clueTextView.setText(R.string.yes);
+                else clueTextView.setText(R.string.no);
                 setIntent();
             }
         });
     }
 
-    public static Intent newIntent(Context packageContext, int answerIsTrue) {
+    public static Intent newIntent(Context packageContext, boolean answerIsTrue) {
         Intent i = new Intent(packageContext, ClueActivity.class);
-        i.putExtra(EXTRA_IS_TRUE, answerIsTrue);
+        i.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
         return i;
     }
 

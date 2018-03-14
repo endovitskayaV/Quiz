@@ -12,18 +12,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"
-        android:text="@string/clue_question"/>
+        android:text="@string/clue_confirm"/>
 
     <TextView
+        android:id="@+id/clue_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="24dp"
-        android:id="@+id/clue_tv"/>
+        android:fontFamily="cursive"
+        android:padding="24dp" />
 
     <Button
         android:id="@+id/clue_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/clue_button"/>
+        android:text="@string/yes"/>
 
 </LinearLayout>
