@@ -19,6 +19,7 @@ import static vsu.ru.quiz.ClueActivity.EXTRA_HAS_TAPPED;
 public class OuizActivity extends AppCompatActivity {
 
     private final static String QUESTION_COUNTER_KEY = "questionCounter";
+    private final static String HAS_TAPPED_KEY = "hasTapped";
     private int questionCounter = 0;
     private boolean hasTapped;
     private final int QUIZ_ACTIVITY_ID = 972;
@@ -29,8 +30,9 @@ public class OuizActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == QUIZ_ACTIVITY_ID)
+        if (requestCode == QUIZ_ACTIVITY_ID && data != null)
             hasTapped = data.getBooleanExtra(EXTRA_HAS_TAPPED, false);
+
     }
 
     @Override
@@ -38,9 +40,10 @@ public class OuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ouiz);
 
-        if (savedInstanceState != null && savedInstanceState.containsKey(QUESTION_COUNTER_KEY))
+        if (savedInstanceState != null && savedInstanceState.containsKey(QUESTION_COUNTER_KEY)) {
             questionCounter = savedInstanceState.getInt(QUESTION_COUNTER_KEY, 0);
-
+            hasTapped=savedInstanceState.getBoolean(HAS_TAPPED_KEY, false);
+        }
         model = new Model();
         questions = Arrays.asList(getResources().getStringArray(R.array.questions));
 
@@ -59,7 +62,7 @@ public class OuizActivity extends AppCompatActivity {
                     else
                         Toast.makeText(OuizActivity.this, R.string.incorrect, Toast.LENGTH_SHORT).show();
                 }
-                hasTapped=false;
+                goNext();
             }
         });
 
@@ -76,7 +79,7 @@ public class OuizActivity extends AppCompatActivity {
                     else
                         Toast.makeText(OuizActivity.this, R.string.incorrect, Toast.LENGTH_SHORT).show();
                 }
-                hasTapped=false;
+                goNext();
             }
         });
 
@@ -85,9 +88,7 @@ public class OuizActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (questionCounter + 1 < questions.size()) questionCounter++;
-                else questionCounter = 0;
-                questionTextView.setText(questions.get(questionCounter));
+                goNext();
             }
         });
 
@@ -96,6 +97,7 @@ public class OuizActivity extends AppCompatActivity {
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hasTapped = false;
                 if (questionCounter - 1 >= 0) questionCounter--;
                 else questionCounter = questions.size() - 1;
                 questionTextView.setText(questions.get(questionCounter));
@@ -116,5 +118,13 @@ public class OuizActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(QUESTION_COUNTER_KEY, questionCounter);
+        outState.putBoolean(HAS_TAPPED_KEY, hasTapped);
+    }
+
+    private void goNext() {
+        hasTapped = false;
+        if (questionCounter + 1 < questions.size()) questionCounter++;
+        else questionCounter = 0;
+        questionTextView.setText(questions.get(questionCounter));
     }
 }
