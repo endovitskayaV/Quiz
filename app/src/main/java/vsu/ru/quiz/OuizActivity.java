@@ -1,6 +1,7 @@
 package vsu.ru.quiz;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,8 @@ public class OuizActivity extends AppCompatActivity {
     private Model model;
     private List<String> questions;
     private TextView questionTextView;
+    private TextView answerTextView;
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -42,7 +45,7 @@ public class OuizActivity extends AppCompatActivity {
 
         if (savedInstanceState != null && savedInstanceState.containsKey(QUESTION_COUNTER_KEY)) {
             questionCounter = savedInstanceState.getInt(QUESTION_COUNTER_KEY, 0);
-            hasTapped=savedInstanceState.getBoolean(HAS_TAPPED_KEY, false);
+            hasTapped = savedInstanceState.getBoolean(HAS_TAPPED_KEY, false);
         }
         model = new Model();
         questions = Arrays.asList(getResources().getStringArray(R.array.questions));
@@ -50,36 +53,34 @@ public class OuizActivity extends AppCompatActivity {
         questionTextView = findViewById(R.id.question_tv);
         questionTextView.setText(questions.get(questionCounter));
 
-        Button trueButton = findViewById(R.id.true_button);
+        answerTextView = findViewById(R.id.answer_tv);
+
+        final Button trueButton = findViewById(R.id.true_button);
+        final Button falseButton = findViewById(R.id.false_button);
+
         trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                trueButton.setEnabled(false);
+                falseButton.setEnabled(false);
                 if (hasTapped)
                     Toast.makeText(OuizActivity.this, R.string.cheated, Toast.LENGTH_SHORT).show();
-                else {
-                    if (model.getAnswers()[questionCounter])
-                        Toast.makeText(OuizActivity.this, R.string.correct, Toast.LENGTH_SHORT).show();
-                    else
-                        Toast.makeText(OuizActivity.this, R.string.incorrect, Toast.LENGTH_SHORT).show();
-                }
-                goNext();
+                    if (model.getAnswers()[questionCounter]) setAnswer(true);
+                    else setAnswer(false);
             }
         });
 
 
-        Button falseButton = findViewById(R.id.false_button);
+
         falseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                trueButton.setEnabled(false);
+                falseButton.setEnabled(false);
                 if (hasTapped)
                     Toast.makeText(OuizActivity.this, R.string.cheated, Toast.LENGTH_SHORT).show();
-                else {
-                    if (!model.getAnswers()[questionCounter])
-                        Toast.makeText(OuizActivity.this, R.string.correct, Toast.LENGTH_SHORT).show();
-                    else
-                        Toast.makeText(OuizActivity.this, R.string.incorrect, Toast.LENGTH_SHORT).show();
-                }
-                goNext();
+                    if (!model.getAnswers()[questionCounter]) setAnswer(true);
+                    else setAnswer(false);
             }
         });
 
@@ -88,7 +89,14 @@ public class OuizActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goNext();
+                hasTapped = false;
+                answerTextView.setVisibility(View.INVISIBLE);
+                trueButton.setEnabled(true);
+                falseButton.setEnabled(true);
+
+                if (questionCounter + 1 < questions.size()) questionCounter++;
+                else questionCounter = 0;
+                questionTextView.setText(questions.get(questionCounter));
             }
         });
 
@@ -98,6 +106,10 @@ public class OuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 hasTapped = false;
+                answerTextView.setVisibility(View.INVISIBLE);
+                trueButton.setEnabled(true);
+                falseButton.setEnabled(true);
+
                 if (questionCounter - 1 >= 0) questionCounter--;
                 else questionCounter = questions.size() - 1;
                 questionTextView.setText(questions.get(questionCounter));
@@ -121,10 +133,16 @@ public class OuizActivity extends AppCompatActivity {
         outState.putBoolean(HAS_TAPPED_KEY, hasTapped);
     }
 
-    private void goNext() {
-        hasTapped = false;
-        if (questionCounter + 1 < questions.size()) questionCounter++;
-        else questionCounter = 0;
-        questionTextView.setText(questions.get(questionCounter));
+    private void setAnswer(boolean isCorrect) {
+        if (isCorrect) {
+            answerTextView.setVisibility(View.VISIBLE);
+            answerTextView.setText(R.string.correct);
+            answerTextView.setTextColor(Color.GREEN);
+        } else {
+            answerTextView.setVisibility(View.VISIBLE);
+            answerTextView.setText(R.string.incorrect);
+            answerTextView.setTextColor(Color.RED);
+        }
     }
 }
+

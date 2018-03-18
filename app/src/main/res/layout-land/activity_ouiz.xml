@@ -47,21 +47,27 @@
             android:layout_height="wrap_content"
             android:text="@string/previous" />
 
-        <View
-            android:layout_width="150dp"
-            android:layout_height="1dp" />
+        <Button
+            android:id="@+id/show_clue_activity_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clue_button"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="2dp"/>
 
         <Button
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next" />
+            android:text="@string/next"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/show_clue_activity_button"
+    <TextView
+        android:id="@+id/answer_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/clue_button" />
+        android:padding="24dp"
+        android:visibility="invisible"/>
 
 </LinearLayout>
