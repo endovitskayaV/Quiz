@@ -22,7 +22,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private final static String QUESTION_COUNTER_KEY = "questionCounter";
     private final static String QUESTION_LIST = "questionList";
-    private final static String ANSWER_BUTTONS_STATE= "answerButtonsState";
+    private final static String ANSWER_TEXT_VIEW = "answerTextView";
     private int questionCounter = 0;
     private final int REQUEST_CODE = 972;
     static final String EXTRA_ANSWER_IS_TRUE = "vsu.ru.quiz.answer_is_true";
@@ -31,6 +31,7 @@ public class QuizActivity extends AppCompatActivity {
     private ArrayList<Question> questions;
     private Button trueButton;
     private Button falseButton;
+    private Boolean isUserAnswerCorrect;
 
 
     @Override
@@ -60,26 +61,36 @@ public class QuizActivity extends AppCompatActivity {
         if (savedInstanceState != null && savedInstanceState.containsKey(QUESTION_COUNTER_KEY)) {
             questionCounter = savedInstanceState.getInt(QUESTION_COUNTER_KEY, 0);
             questions = (ArrayList<Question>) savedInstanceState.getSerializable(QUESTION_LIST);
+            isUserAnswerCorrect = (Boolean) savedInstanceState.getSerializable(ANSWER_TEXT_VIEW);
         }
 
+        answerTextView = findViewById(R.id.answer_tv);
+        trueButton = findViewById(R.id.true_button);
+        falseButton = findViewById(R.id.false_button);
         questionTextView = findViewById(R.id.question_tv);
         questionTextView.setText(questions.get(questionCounter).getText());
 
-        answerTextView = findViewById(R.id.answer_tv);
+        if (isUserAnswerCorrect != null) {
+            setAnswer(isUserAnswerCorrect);
+            setAnswerButtonsAbility(false);
+        }
 
-        trueButton = findViewById(R.id.true_button);
-        falseButton = findViewById(R.id.false_button);
+
 
         trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trueButton.setEnabled(false);
+                setAnswerButtonsAbility(false);
                 falseButton.setEnabled(false);
-                trueButton.setBackgroundResource(R.drawable.button_background_chosen);
                 if (questions.get(questionCounter).isCheated())
                     Toast.makeText(QuizActivity.this, R.string.cheated, Toast.LENGTH_SHORT).show();
-                if (questions.get(questionCounter).getAnswer()) setAnswer(true);
-                else setAnswer(false);
+                if (questions.get(questionCounter).getAnswer()) {
+                    isUserAnswerCorrect = true;
+                    setAnswer(isUserAnswerCorrect);
+                } else {
+                    isUserAnswerCorrect = false;
+                    setAnswer(isUserAnswerCorrect);
+                }
             }
         });
 
@@ -87,13 +98,16 @@ public class QuizActivity extends AppCompatActivity {
         falseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trueButton.setEnabled(false);
-                falseButton.setEnabled(false);
-                falseButton.setBackgroundResource(R.drawable.button_background_chosen);
+                setAnswerButtonsAbility(false);
                 if (questions.get(questionCounter).isCheated())
                     Toast.makeText(QuizActivity.this, R.string.cheated, Toast.LENGTH_SHORT).show();
-                if (!questions.get(questionCounter).getAnswer()) setAnswer(true);
-                else setAnswer(false);
+                if (!questions.get(questionCounter).getAnswer()) {
+                    isUserAnswerCorrect = true;
+                    setAnswer(isUserAnswerCorrect);
+                } else {
+                    isUserAnswerCorrect = false;
+                    setAnswer(isUserAnswerCorrect);
+                }
             }
         });
 
@@ -136,10 +150,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private void resetView() {
         answerTextView.setVisibility(View.INVISIBLE);
-        trueButton.setEnabled(true);
-        falseButton.setEnabled(true);
-        falseButton.setBackgroundResource(R.drawable.button_background_normal);
-        trueButton.setBackgroundResource(R.drawable.button_background_normal);
+        setAnswerButtonsAbility(true);
+        isUserAnswerCorrect = null;
     }
 
     @Override
@@ -147,6 +159,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt(QUESTION_COUNTER_KEY, questionCounter);
         outState.putSerializable(QUESTION_LIST, questions);
+        outState.putSerializable(ANSWER_TEXT_VIEW, isUserAnswerCorrect);
     }
 
     private void setAnswer(boolean isCorrect) {
@@ -160,5 +173,11 @@ public class QuizActivity extends AppCompatActivity {
             answerTextView.setTextColor(ContextCompat.getColor(this, R.color.red));
         }
     }
+
+    private void setAnswerButtonsAbility(boolean enabled) {
+        trueButton.setEnabled(enabled);
+        falseButton.setEnabled(enabled);
+    }
+
 }
 

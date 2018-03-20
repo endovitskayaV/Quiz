@@ -5,9 +5,4 @@
     <color name="colorAccent">#ff4081</color>
     <color name="red">#ff00</color>
     <color name="green">#66dd66</color>
-    <color name="black">#000</color>
-    <color name="indigo">#9f28da</color>
-    <color name="color_button_normal">#aaa</color>
-    <color name="color_button_disabled">#ccc</color>
-    <color name="color_button_chosen_disabled">#888</color>
 </resources>

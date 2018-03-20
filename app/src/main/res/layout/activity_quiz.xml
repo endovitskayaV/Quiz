@@ -25,7 +25,6 @@
             android:id="@+id/true_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_background_normal"
             android:text="@string/yes" />
 
         <View
@@ -36,7 +35,6 @@
             android:id="@+id/false_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_background_normal"
             android:text="@string/no" />
     </LinearLayout>
 
@@ -48,7 +46,6 @@
             android:id="@+id/previous_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_background_normal"
             android:text="@string/previous" />
 
         <View
@@ -59,7 +56,6 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_background_normal"
             android:text="@string/next" />
     </LinearLayout>
 
@@ -67,7 +63,6 @@
         android:id="@+id/show_clue_activity_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_background_normal"
         android:text="@string/clue_button" />
 
     <TextView
