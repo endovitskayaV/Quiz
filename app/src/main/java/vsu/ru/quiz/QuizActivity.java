@@ -18,10 +18,11 @@ import vsu.ru.quiz.model.Question;
 import static vsu.ru.quiz.ClueActivity.EXTRA_HAS_TAPPED;
 
 
-public class OuizActivity extends AppCompatActivity {
+public class QuizActivity extends AppCompatActivity {
 
     private final static String QUESTION_COUNTER_KEY = "questionCounter";
     private final static String QUESTION_LIST = "questionList";
+    private final static String ANSWER_BUTTONS_STATE= "answerButtonsState";
     private int questionCounter = 0;
     private final int REQUEST_CODE = 972;
     static final String EXTRA_ANSWER_IS_TRUE = "vsu.ru.quiz.answer_is_true";
@@ -42,7 +43,7 @@ public class OuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ouiz);
+        setContentView(R.layout.activity_quiz);
 
         List<String> texts = Arrays.asList(getResources().getStringArray(R.array.questions));
 
@@ -72,11 +73,11 @@ public class OuizActivity extends AppCompatActivity {
         trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trueButton.setTextColor(ContextCompat.getColor(OuizActivity.this, R.color.indigo));
                 trueButton.setEnabled(false);
                 falseButton.setEnabled(false);
+                trueButton.setBackgroundResource(R.drawable.button_background_chosen);
                 if (questions.get(questionCounter).isCheated())
-                    Toast.makeText(OuizActivity.this, R.string.cheated, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuizActivity.this, R.string.cheated, Toast.LENGTH_SHORT).show();
                 if (questions.get(questionCounter).getAnswer()) setAnswer(true);
                 else setAnswer(false);
             }
@@ -86,11 +87,11 @@ public class OuizActivity extends AppCompatActivity {
         falseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                falseButton.setTextColor(ContextCompat.getColor(OuizActivity.this, R.color.indigo));
                 trueButton.setEnabled(false);
                 falseButton.setEnabled(false);
+                falseButton.setBackgroundResource(R.drawable.button_background_chosen);
                 if (questions.get(questionCounter).isCheated())
-                    Toast.makeText(OuizActivity.this, R.string.cheated, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuizActivity.this, R.string.cheated, Toast.LENGTH_SHORT).show();
                 if (!questions.get(questionCounter).getAnswer()) setAnswer(true);
                 else setAnswer(false);
             }
@@ -114,9 +115,7 @@ public class OuizActivity extends AppCompatActivity {
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                answerTextView.setVisibility(View.INVISIBLE);
-                trueButton.setEnabled(true);
-                falseButton.setEnabled(true);
+                resetView();
 
                 if (questionCounter - 1 >= 0) questionCounter--;
                 else questionCounter = questions.size() - 1;
@@ -129,7 +128,7 @@ public class OuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = ClueActivity.newIntent(
-                        OuizActivity.this, questions.get(questionCounter).getAnswer());
+                        QuizActivity.this, questions.get(questionCounter).getAnswer());
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
@@ -137,10 +136,10 @@ public class OuizActivity extends AppCompatActivity {
 
     private void resetView() {
         answerTextView.setVisibility(View.INVISIBLE);
-        trueButton.setTextColor(ContextCompat.getColor(OuizActivity.this, R.color.black));
-        falseButton.setTextColor(ContextCompat.getColor(OuizActivity.this, R.color.black));
         trueButton.setEnabled(true);
         falseButton.setEnabled(true);
+        falseButton.setBackgroundResource(R.drawable.button_background_normal);
+        trueButton.setBackgroundResource(R.drawable.button_background_normal);
     }
 
     @Override

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="vsu.ru.quiz.OuizActivity">
+    tools:context="vsu.ru.quiz.QuizActivity">
 
     <TextView
         android:id="@+id/question_tv"
@@ -23,8 +24,8 @@
             android:id="@+id/true_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:text="@string/yes" />
+            android:text="@string/yes"
+            android:background="@drawable/button_background_normal"/>
 
         <View
             android:layout_width="20dp"
@@ -34,7 +35,8 @@
             android:id="@+id/false_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no" />
+            android:text="@string/no"
+            android:background="@drawable/button_background_normal"/>
     </LinearLayout>
 
     <LinearLayout
@@ -45,24 +47,26 @@
             android:id="@+id/previous_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/previous" />
+            android:text="@string/previous"
+            android:background="@drawable/button_background_normal"/>
 
-        <View
-            android:layout_width="150dp"
-            android:layout_height="1dp" />
+        <Button
+            android:id="@+id/show_clue_activity_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clue_button"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/button_background_normal"/>
 
         <Button
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next" />
+            android:text="@string/next"
+            android:background="@drawable/button_background_normal"/>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/show_clue_activity_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/clue_button" />
 
     <TextView
         android:id="@+id/answer_tv"
