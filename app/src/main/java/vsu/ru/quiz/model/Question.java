@@ -2,10 +2,6 @@ package vsu.ru.quiz.model;
 
 import java.io.Serializable;
 
-/**
- * Created by Valya on 20.03.2018.
- */
-
 public class Question implements Serializable {
     private String text;
     private boolean answer;

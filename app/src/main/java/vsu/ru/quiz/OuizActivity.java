@@ -1,8 +1,8 @@
 package vsu.ru.quiz;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +28,8 @@ public class OuizActivity extends AppCompatActivity {
     private TextView questionTextView;
     private TextView answerTextView;
     private ArrayList<Question> questions;
+    private Button trueButton;
+    private Button falseButton;
 
 
     @Override
@@ -64,12 +66,13 @@ public class OuizActivity extends AppCompatActivity {
 
         answerTextView = findViewById(R.id.answer_tv);
 
-        final Button trueButton = findViewById(R.id.true_button);
-        final Button falseButton = findViewById(R.id.false_button);
+        trueButton = findViewById(R.id.true_button);
+        falseButton = findViewById(R.id.false_button);
 
         trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                trueButton.setTextColor(ContextCompat.getColor(OuizActivity.this, R.color.indigo));
                 trueButton.setEnabled(false);
                 falseButton.setEnabled(false);
                 if (questions.get(questionCounter).isCheated())
@@ -83,6 +86,7 @@ public class OuizActivity extends AppCompatActivity {
         falseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                falseButton.setTextColor(ContextCompat.getColor(OuizActivity.this, R.color.indigo));
                 trueButton.setEnabled(false);
                 falseButton.setEnabled(false);
                 if (questions.get(questionCounter).isCheated())
@@ -97,9 +101,7 @@ public class OuizActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                answerTextView.setVisibility(View.INVISIBLE);
-                trueButton.setEnabled(true);
-                falseButton.setEnabled(true);
+                resetView();
 
                 if (questionCounter + 1 < questions.size()) questionCounter++;
                 else questionCounter = 0;
@@ -133,6 +135,14 @@ public class OuizActivity extends AppCompatActivity {
         });
     }
 
+    private void resetView() {
+        answerTextView.setVisibility(View.INVISIBLE);
+        trueButton.setTextColor(ContextCompat.getColor(OuizActivity.this, R.color.black));
+        falseButton.setTextColor(ContextCompat.getColor(OuizActivity.this, R.color.black));
+        trueButton.setEnabled(true);
+        falseButton.setEnabled(true);
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -144,11 +154,11 @@ public class OuizActivity extends AppCompatActivity {
         if (isCorrect) {
             answerTextView.setVisibility(View.VISIBLE);
             answerTextView.setText(R.string.correct);
-            answerTextView.setTextColor(Color.GREEN);
+            answerTextView.setTextColor(ContextCompat.getColor(this, R.color.green));
         } else {
             answerTextView.setVisibility(View.VISIBLE);
             answerTextView.setText(R.string.incorrect);
-            answerTextView.setTextColor(Color.RED);
+            answerTextView.setTextColor(ContextCompat.getColor(this, R.color.red));
         }
     }
 }
