@@ -11,13 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"
+        android:fontFamily="cursive"
+        android:textColor="@color/colorPrimaryDark"
         android:text="@string/clue_confirm"/>
 
     <TextView
         android:id="@+id/clue_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="cursive"
         android:padding="24dp" />
 
     <Button

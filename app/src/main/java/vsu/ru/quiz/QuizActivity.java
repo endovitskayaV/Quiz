@@ -116,14 +116,18 @@ public class QuizActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetView();
-
-                if (questionCounter + 1 < questions.size()) questionCounter++;
-                else questionCounter = 0;
-                questionTextView.setText(questions.get(questionCounter).getText());
+                goNext();
             }
         });
 
+
+        questionTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goNext();
+
+            }
+        });
 
         Button previousButton = findViewById(R.id.previous_button);
         previousButton.setOnClickListener(new View.OnClickListener() {
@@ -179,5 +183,13 @@ public class QuizActivity extends AppCompatActivity {
         falseButton.setEnabled(enabled);
     }
 
+
+    private void goNext() {
+        resetView();
+
+        if (questionCounter + 1 < questions.size()) questionCounter++;
+        else questionCounter = 0;
+        questionTextView.setText(questions.get(questionCounter).getText());
+    }
 }
 
